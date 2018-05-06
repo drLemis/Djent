@@ -1,15 +1,17 @@
-var rate = 60000 / 120 / 2; //1 minute, bpm, amount of notes in quarter
+var rate = 60000 / 120 / 4; //1 minute, bpm, amount of notes in quarter
 var playing = false;
 
-var srcGuitar = "audio/guitar.wav";
-var srcGuitarDouble = "audio/guitar_double.wav";
-var srcGuitarMuffled = "audio/guitar_muffled.wav";
+var srcGuitarClean = "audio/guitar_clean.wav";
+var srcGuitarMute = "audio/guitar_mute.wav";
+var srcGuitarFlageolet = "audio/guitar_flageolet.wav";
 
 function playSound() {
     if (!playing) {
+        document.getElementById("button").innerHTML = 'UNDJENT';
         playing = true;
         generate();
     } else {
+        document.getElementById("button").innerHTML = 'DJENT';
         playing = false;
     }
 }
@@ -25,15 +27,15 @@ function generate() {
         localSoundSrc.type = "audio/wav";
 
         var random = getRandomInt(0, 9);
-        if (random < 5) {
-            localSoundSrc.src = srcGuitar;
+        if (random < 4) {
+            localSoundSrc.src = srcGuitarClean;
         } else if (random < 7) {
-            localSoundSrc.src = srcGuitarDouble;
+            localSoundSrc.src = srcGuitarMute;
         } else if (random < 9) {
-            localSoundSrc.src = srcGuitarMuffled;
+            localSoundSrc.src = srcGuitarFlageolet;
         }
 
-        console.log(localSoundSrc.src);
+        // console.log(localSoundSrc.src);
         localSoundSnd.appendChild(localSoundSrc);
         localSoundSnd.play();
 
