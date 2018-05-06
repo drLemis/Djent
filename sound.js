@@ -26,14 +26,22 @@ function generate() {
         var localSoundSrc = document.createElement("source");
         localSoundSrc.type = "audio/wav";
 
+        var tab = "-";
+
         var random = getRandomInt(0, 9);
         if (random < 4) {
             localSoundSrc.src = srcGuitarClean;
+            tab = "0";
         } else if (random < 7) {
             localSoundSrc.src = srcGuitarMute;
+            tab = "X";
         } else if (random < 9) {
             localSoundSrc.src = srcGuitarFlageolet;
+            tab = "F";
         }
+
+        var tabEl = document.getElementById("tabs");
+        tabEl.innerHTML = tabEl.innerHTML.substr(1)+tab;
 
         // console.log(localSoundSrc.src);
         localSoundSnd.appendChild(localSoundSrc);

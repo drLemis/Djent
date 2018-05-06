@@ -5,29 +5,30 @@
     <style>
         html,
         body {
+            text-align: center;
             height: 99%;
+            font-family: monospace;
         }
 
         .button {
-            position: absolute;
-            top: 50%;
             width: 100px;
             height: 50px;
-            margin-left: -50px;
-            margin-top: -25px;
         }
 
         .center {
-            margin: auto;
-            position: relative;
-            text-align: center;
+            position: fixed;
             top: 50%;
-            width: 20%;
+            width: 100%;
+        }
+
+        .tabs {
+            position: fixed;
+            top: 60%;
+            width: 100%;
         }
 
         .footer {
             position: fixed;
-            text-align: center;
             bottom: 0px;
             width: 100%;
         }
@@ -38,7 +39,10 @@
     <div class="center">
         <button class="button" id="button" onclick="playSound()">DJENT</button>
     </div>
-    <div class="footer">2018.05.05, v1.01</div>
+
+    <div class="tabs" id="tabs">---------------</div>
+
+    <div class="footer">2018.05.05, v1.02</div>
     <script src="sound.js"></script>
 </body>
 
