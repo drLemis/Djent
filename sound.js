@@ -28,6 +28,9 @@ var audioDrumsBridge = new Audio("audio/drums_bridge.wav");
 audioDrumsBridge.load();
 audioDrumsBridge.preload = 'auto';
 
+var currentDrums;
+var currentGuitar;
+
 function playSound() {
     if (!playing) {
         document.getElementById("button").innerHTML = 'UNDJENT';
@@ -37,11 +40,20 @@ function playSound() {
     } else {
         document.getElementById("button").innerHTML = 'DJENT';
         playing = false;
+        stopSound();
     }
 }
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function stopSound() {
+    currentDrums.pause();
+    currentDrums.currentTime = 0;
+
+    currentGuitar.pause();
+    currentGuitar.currentTime = 0;
 }
 
 function generateGuitar() {
@@ -50,21 +62,23 @@ function generateGuitar() {
 
         var random = getRandomInt(1, 100);
         if (random <= 40) {
-            audioGuitarClean.cloneNode(true).play();
+            currentGuitar = audioGuitarClean.cloneNode(true);
             tab = "0";
         } else if (random <= 65) {
-            audioGuitarMute.cloneNode(true).play();
+            currentGuitar = audioGuitarMute.cloneNode(true);
             tab = "X";
         } else if (random <= 80) {
-            audioGuitarFlageolet.cloneNode(true).play();
+            currentGuitar = audioGuitarFlageolet.cloneNode(true);
             tab = "F";
         }
+
+        currentGuitar.play();
 
         var tabEl = document.getElementById("tabs");
         tabEl.innerHTML = tabEl.innerHTML.substr(1) + tab;
 
         evolution++;
-        if (evolution > 7){
+        if (evolution > 7) {
             evolution = 0;
             generateDrums();
         }
@@ -77,12 +91,14 @@ function generateDrums() {
     if (playing) {
         var random = getRandomInt(1, 100);
         if (random <= 50) {
-            audioDrumsMain.cloneNode(true).play();
+            currentDrums = audioDrumsMain.cloneNode(true);
         } else if (random <= 85) {
-            audioDrumsFiller.cloneNode(true).play();
+            currentDrums = audioDrumsFiller.cloneNode(true);
         } else if (random <= 100) {
-            audioDrumsBridge.cloneNode(true).play();
+            currentDrums = audioDrumsBridge.cloneNode(true);
         }
+
+        currentDrums.play();
     }
 
 }
