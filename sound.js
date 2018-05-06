@@ -44,44 +44,59 @@ function playSound() {
     }
 }
 
+function stopSound() {
+    stopGuitar();
+    stopDrums();
+}
+
+function stopGuitar() {
+    if (currentGuitar) {
+        currentGuitar.pause();
+        currentGuitar.currentTime = 0;
+    }
+}
+
+function stopDrums() {
+    if (currentDrums) {
+        currentDrums.pause();
+        currentDrums.currentTime = 0;
+    }
+}
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function stopSound() {
-    currentDrums.pause();
-    currentDrums.currentTime = 0;
-
-    currentGuitar.pause();
-    currentGuitar.currentTime = 0;
-}
-
 function generateGuitar() {
     if (playing) {
-        var tab = "-";
-
-        var random = getRandomInt(1, 110);
-        if (random <= 40) {
-            currentGuitar = audioGuitarClean.cloneNode(true);
-            tab = "0";
-        } else if (random <= 65) {
-            currentGuitar = audioGuitarMute.cloneNode(true);
-            tab = "X";
-        } else if (random <= 80) {
-            currentGuitar = audioGuitarFlageolet.cloneNode(true);
-            tab = "F";
-        }
-
-        currentGuitar.play();
-
-        var tabEl = document.getElementById("tabs");
-        tabEl.innerHTML = tabEl.innerHTML.substr(1) + tab;
 
         evolution++;
         if (evolution > 7) {
             evolution = 0;
+            stopSound();
             generateDrums();
         }
+
+        var tab = "-";
+
+        var random = getRandomInt(1, 105);
+        // stopGuitar();
+        if (random <= 40) {
+            currentGuitar = audioGuitarClean.cloneNode(true);
+            currentGuitar.play();
+            tab = "0";
+        } else if (random <= 65) {
+            currentGuitar = audioGuitarMute.cloneNode(true);
+            currentGuitar.play();
+            tab = "X";
+        } else if (random <= 80) {
+            currentGuitar = audioGuitarFlageolet.cloneNode(true);
+            currentGuitar.play();
+            tab = "F";
+        }
+
+        var tabEl = document.getElementById("tabs");
+        tabEl.innerHTML = tabEl.innerHTML.substr(1) + tab;
 
         setTimeout(generateGuitar, rate);
     }
@@ -92,13 +107,14 @@ function generateDrums() {
         var random = getRandomInt(1, 100);
         if (random <= 50) {
             currentDrums = audioDrumsMain.cloneNode(true);
+            currentDrums.play();
         } else if (random <= 85) {
             currentDrums = audioDrumsFiller.cloneNode(true);
+            currentDrums.play();
         } else if (random <= 100) {
             currentDrums = audioDrumsBridge.cloneNode(true);
+            currentDrums.play();
         }
-
-        currentDrums.play();
     }
 
 }
