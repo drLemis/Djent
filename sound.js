@@ -28,14 +28,14 @@ function generate() {
 
         var tab = "-";
 
-        var random = getRandomInt(0, 9);
-        if (random < 4) {
+        var random = getRandomInt(1, 100);
+        if (random <= 40) {
             localSoundSrc.src = srcGuitarClean;
             tab = "0";
-        } else if (random < 7) {
+        } else if (random <= 65) {
             localSoundSrc.src = srcGuitarMute;
             tab = "X";
-        } else if (random < 9) {
+        } else if (random <= 80) {
             localSoundSrc.src = srcGuitarFlageolet;
             tab = "F";
         }
