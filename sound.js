@@ -2,13 +2,31 @@ var rate = 60000 / 120 / 4; //1 minute, bpm, amount of notes in quarter
 var playing = false;
 var evolution = 8;
 
-var srcGuitarClean = "audio/guitar_clean.wav";
-var srcGuitarMute = "audio/guitar_mute.wav";
-var srcGuitarFlageolet = "audio/guitar_flageolet.wav";
+// guitar
+var audioGuitarClean = new Audio("audio/guitar_clean.wav");
+audioGuitarClean.load();
+audioGuitarClean.preload = 'auto';
 
-var srcDrumsMain = "audio/drums_main.wav";
-var srcDrumsFiller = "audio/drums_filler.wav";
-var srcDrumsBridge = "audio/drums_bridge.wav";
+var audioGuitarMute = new Audio("audio/guitar_mute.wav");
+audioGuitarMute.load();
+audioGuitarMute.preload = 'auto';
+
+var audioGuitarFlageolet = new Audio("audio/guitar_flageolet.wav");
+audioGuitarFlageolet.load();
+audioGuitarFlageolet.preload = 'auto';
+
+// drums
+var audioDrumsMain = new Audio("audio/drums_main.wav");
+audioDrumsMain.load();
+audioDrumsMain.preload = 'auto';
+
+var audioDrumsFiller = new Audio("audio/drums_filler.wav");
+audioDrumsFiller.load();
+audioDrumsFiller.preload = 'auto';
+
+var audioDrumsBridge = new Audio("audio/drums_bridge.wav");
+audioDrumsBridge.load();
+audioDrumsBridge.preload = 'auto';
 
 function playSound() {
     if (!playing) {
@@ -28,32 +46,24 @@ function getRandomInt(min, max) {
 
 function generateGuitar() {
     if (playing) {
-        evolution++;
-        var localSoundSnd = new Audio();
-        var localSoundSrc = document.createElement("source");
-        localSoundSrc.type = "audio/wav";
-
         var tab = "-";
 
         var random = getRandomInt(1, 100);
         if (random <= 40) {
-            localSoundSrc.src = srcGuitarClean;
+            audioGuitarClean.cloneNode(true).play();
             tab = "0";
         } else if (random <= 65) {
-            localSoundSrc.src = srcGuitarMute;
+            audioGuitarMute.cloneNode(true).play();
             tab = "X";
         } else if (random <= 80) {
-            localSoundSrc.src = srcGuitarFlageolet;
+            audioGuitarFlageolet.cloneNode(true).play();
             tab = "F";
         }
 
         var tabEl = document.getElementById("tabs");
         tabEl.innerHTML = tabEl.innerHTML.substr(1) + tab;
 
-        // console.log(localSoundSrc.src);
-        localSoundSnd.appendChild(localSoundSrc);
-        localSoundSnd.play();
-
+        evolution++;
         if (evolution > 7){
             evolution = 0;
             generateDrums();
@@ -65,23 +75,14 @@ function generateGuitar() {
 
 function generateDrums() {
     if (playing) {
-        var localSoundSnd = new Audio();
-        var localSoundSrc = document.createElement("source");
-        localSoundSrc.type = "audio/wav";
-
         var random = getRandomInt(1, 100);
-
         if (random <= 50) {
-            localSoundSrc.src = srcDrumsMain;
+            audioDrumsMain.cloneNode(true).play();
         } else if (random <= 85) {
-            localSoundSrc.src = srcDrumsFiller;
+            audioDrumsFiller.cloneNode(true).play();
         } else if (random <= 100) {
-            localSoundSrc.src = srcDrumsBridge;
+            audioDrumsBridge.cloneNode(true).play();
         }
-
-        console.log(random);
-        localSoundSnd.appendChild(localSoundSrc);
-        localSoundSnd.play();
     }
 
 }
