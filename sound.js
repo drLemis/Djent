@@ -60,7 +60,7 @@ function generateGuitar() {
     if (playing) {
         var tab = "-";
 
-        var random = getRandomInt(1, 100);
+        var random = getRandomInt(1, 110);
         if (random <= 40) {
             currentGuitar = audioGuitarClean.cloneNode(true);
             tab = "0";
